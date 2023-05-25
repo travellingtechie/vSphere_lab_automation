@@ -1,0 +1,27 @@
+---
+ansible_host: "win-cc.lab.travellingtechie.com"
+ansible_user: "mike"
+#interface_name: "ens18"
+ip_address: "10.1.60.199"
+netmask_cidr: "24"
+netmask: "255.255.255.0"
+gateway_address: "10.1.60.1"
+
+
+# information for hypervisor
+hypervisor: "vcenter"
+template_type: "template"
+esxi_hostname: "rama10.lab.travellingtechie.com"
+vm_name: "{{ inventory_hostname_short }}"
+vm_template: "ubuntu-minimal"
+vm_folder: "{{ vcenter_folder }}"
+vm_state: "poweredon"
+vm_datastore: "{{ vcenter_datastore }}"  # Change if you want it in a different datastore
+vm_tags: "ansible"
+notes: "Lab vCenter"
+vm_network: "{{ vcenter_vm_network }}"
+## VM hardware information
+vm_memory: "2048"
+vm_cores_per_socket: "2"
+vm_num_cpus: "2"     # must be a multiple of cores per socket
+enable_nested_virt: "no"  # Enable for ESXi hosts

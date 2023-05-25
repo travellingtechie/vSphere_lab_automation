@@ -1,0 +1,16 @@
+---
+# tasks file for ubuntu_initial_setup
+# variables should come from the inventory file, except for initial_ip, this should be passed from the command line
+
+# Install packages defined in Ubuntu group
+- include_tasks: install_os_packages.yaml
+
+- name: Deploy VM from Template
+  include_tasks: create_user.yaml
+  loop: "{{ users }}"
+  loop_control:
+    loop_var: user
+
+- name: Enable Ansible
+  include_tasks: ansible_role.yaml
+  when: enable_ansible_role

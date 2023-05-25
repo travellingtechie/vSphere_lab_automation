@@ -1,0 +1,14 @@
+---
+# User and ssh keys should already be configured during ubuntu install (or via cloudinit)
+- hosts: controlcenter
+  gather_facts: false
+  become: true
+  roles:
+    - role: ubuntu_configure
+      vars:
+        users: ["{{ lab_user }}"]
+        user_username: "{{ lab_user }}"
+        user_encrypted_password: "{{ lab_encrypted_password }}"
+        user_shell: "{{ lab_user_shell }}"
+        enable_admin: true
+        enable_user_vars: false

@@ -1,0 +1,14 @@
+---
+# tasks file for vsphere_deploy_VM
+# eventually I want to support OVA/Template/content library  deployed to vcenter/cluster/host
+#- name: Deploy VM from Template
+#  include_tasks: vcenter_deploy_vm_from_template.yaml
+# when
+
+- name: Deploy VM from OVA
+  include_tasks: vcenter_deploy_vm_from_ova.yaml
+  when: template_type == "ova"
+
+- name: Deploy VM from template
+  include_tasks: vcenter_deploy_vm_from_template.yaml
+  when: template_type == "template"

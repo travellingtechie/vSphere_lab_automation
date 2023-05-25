@@ -1,0 +1,12 @@
+# https://docs.ansible.com/ansible/2.9/modules/apt_module.html
+# These packages aren't critical, so I don't want to fail if one doesn't get installed.
+# Other plays/roles should verify/install the packages they need.
+- name: Install Ubuntu Packages
+  become: yes
+  apt:
+    name: "{{ os_packages }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  when: os_packages is defined
+  ignore_errors: true

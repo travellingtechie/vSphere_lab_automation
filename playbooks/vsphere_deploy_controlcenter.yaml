@@ -1,0 +1,7 @@
+---
+## Deploy controlcenter VM from Template
+- hosts: controlcenter
+  connection: local
+  gather_facts: False
+  roles:
+    - vsphere_deploy_VM

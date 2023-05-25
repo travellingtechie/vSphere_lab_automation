@@ -1,0 +1,55 @@
+# Create user
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
+- name: Include user vars
+  ansible.builtin.include_vars:
+    dir: "{{ user_vars_absolute_path }}/{{ user }}"
+  when: enable_user_vars
+#    name: uservars
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
+- name: Create Lab Users
+  become: yes
+  ansible.builtin.user:
+    name: "{{ user_username }}"
+    password: "{{ user_encrypted_password }}"
+    shell: "{{ user_shell }}"
+
+- name: Add Admin groups
+  become: yes
+  ansible.builtin.user:
+    name: "{{ user_username }}"
+    groups: "{{ admin_groups }}"
+    append: yes
+  when: enable_admin
+
+# Copy files to home directory
+- name: Copy files to user's home directory
+  copy:
+    src: "{{ user_files_absolute_path }}{{ user_username }}"
+    dest: "/home"
+    owner: "{{ user_username }}"
+    group: "{{ user_username }}"
+    mode: '0644'
+
+# Create sudoers.d file
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+- name: Create sudoers.d/80-ansible-users
+  become: yes
+  ansible.builtin.file:
+    path: /etc/sudoers.d/80-ansible-users
+    state: touch
+    mode: 0640
+    modification_time: preserve
+    access_time: preserve
+  when: enable_admin
+
+# add lab_user to sudoers.d, no password required for sudo commands
+- name: Allow 'sudo' group to have passwordless sudo
+  become: yes
+  lineinfile:
+    dest: /etc/sudoers.d/80-ansible-users
+    state: present
+    regexp: '^{{ user_username }}'
+    line: '{{ user_username }} ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  when: enable_admin

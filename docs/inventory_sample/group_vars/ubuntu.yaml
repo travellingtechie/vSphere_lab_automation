@@ -1,0 +1,45 @@
+ansible_connection: "ssh"
+ansible_user: "mike"
+ansible_os_family: "debian"
+# installed by ubuntu_configure role
+os_packages:
+  - vim
+  - fish
+  - git
+  - curl
+  - sudo
+  - figlet
+  - tmux
+  - mlocate
+  - fonts-powerline
+  - dnsutils
+  - ntpdate
+  - gnupg2
+  - net-tools
+  - iftop
+  - dialog
+  - rsyslog
+  - jq
+  - tcpdump
+  - network-manager
+  - nfs-common
+  - netcat-openbsd
+  - iputils-ping
+  - pip
+  - acl
+  - python3
+  - python3-venv
+
+admin_groups:
+  - adm
+  - dialout
+  - cdrom
+  - floppy
+  - sudo
+  - audio
+  - dip
+  - www-data
+  - video
+  - plugdev
+  - netdev
+  - lxd

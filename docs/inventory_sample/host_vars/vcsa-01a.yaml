@@ -1,0 +1,41 @@
+
+
+ansible_host: "vcsa-01a.lab.travellingtechie.com"
+ansible_distribution: "vcenter"
+ansible_os_family: "Photon"
+
+# interface_name: "ens18"
+ip_address: "10.1.60.201"  # may be in properties below
+netmask: "24"
+gateway_address: "10.1.60.1"
+
+
+# information for hypervisor
+hypervisor: "vcenter"
+template_type: "ova"
+esxi_hostname: "rama10.lab.travellingtechie.com"
+vm_name: "{{ inventory_hostname_short }}"
+vm_ova: "vcsa8-fixed.ova"
+vm_folder: "{{ vcenter_folder }}"
+vm_state: "poweredon"
+vm_datastore: "{{ vcenter_datastore }}"  # Change if you want it in a different datastore
+vm_tags: "ansible"
+notes: "Lab vCenter"
+vm_network: "{{ vcenter_vm_network }}"
+vm_ova_properties:
+          DeploymentOption.value: "tiny" # vCenter t-shirt size: tiny,small,medium,large, or infrastructure
+          guestinfo.cis.appliance.net.addr.family: "ipv4" # ipv4 or ipv6
+          guestinfo.cis.appliance.net.mode: "static" # static or dhcp
+          guestinfo.cis.appliance.net.addr: "{{ ip_address }}"
+          guestinfo.cis.appliance.net.pnid: "{{ ansible_host }}" # FQDN of vcenter server
+          guestinfo.cis.appliance.net.prefix: "{{ netmask_cidr }}" # netmask length, CIDR notation, i.e. '24'
+          guestinfo.cis.appliance.net.gateway: "{{ gateway_address }}"
+          guestinfo.cis.appliance.net.dns.servers: "{{ lab_nameserver1 }}" # Comma separated list of IP addresses of DNS servers.
+          guestinfo.cis.appliance.root.passwd: "{{ admin_password }}"
+          guestinfo.cis.ceip_enabled: "False"
+# fixme   guestinfo.cis.deployment.autoconfig: "True" # Auto-configure after deployment
+          guestinfo.cis.vmdir.password: "{{ admin_password}}" # SSO Password for administrator@vsphere.local
+          guestinfo.cis.appliance.ntp.servers: "{{ ntp_server}}"
+#          guestinfo.cis.appliance.ssh.enabled: "True"
+          domain: ""
+          searchpath: "lab.travellingtechie.com"

@@ -1,0 +1,12 @@
+---
+
+## Ansible role
+https://docs.ansible.com/ansible/2.9/modules/apt_module.html
+- name: Install Ubuntu Packages
+  become: yes
+  apt:
+    name: "{{ ansible_packages }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+

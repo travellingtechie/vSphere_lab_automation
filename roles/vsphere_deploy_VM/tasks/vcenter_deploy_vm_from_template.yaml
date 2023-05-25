@@ -1,0 +1,43 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/community/vmware/vmware_guest_module.html#ansible-collections-community-vmware-vmware-guest-module
+- name: Create VM from Template
+  delegate_to: localhost
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    validate_certs: False
+    name: "{{ vm_name }}"
+    template: "{{ vm_template }}"
+    folder: "/{{ vcenter_datacenter }}/vm/{{ vm_folder }}"
+    state: "{{ vm_state }}"
+    esxi_hostname: "{{ esxi_hostname}}"
+    # cluster: "{{ VM.cluster }}"
+    # customization_spec: "{{vm_customization_spec}}"
+    datastore: "{{ vm_datastore }}"
+    hardware:
+      memory_mb: "{{ vm_memory }}"
+      num_cpu_cores_per_socket: "{{ vm_cores_per_socket }}"
+      num_cpus: "{{ vm_num_cpus }}"
+      #scsi: paravirtual
+      nested_virt: "{{ enable_nested_virt }}"
+    networks:
+     - name: "{{ vm_network }}"
+       type: static
+       ip: "{{ ip_address }}"
+       netmask: "{{ netmask }}"
+       gateway: "{{ gateway_address }}"
+    customization:
+      dns_servers:
+        - "{{ lab_nameserver1 }}"
+        - "{{ lab_nameserver2 | default(omit) }}"
+      domain: "{{ lab_domain }}"
+
+
+    wait_for_ip_address: yes
+  register: VM_result
+
+- name: Debug
+  ansible.builtin.debug:
+    var: VM_result

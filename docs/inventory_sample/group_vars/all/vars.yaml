@@ -1,0 +1,65 @@
+# Include trailing slash in directory for files
+files_absolute_path: "/home/brandonne/projects/files/"
+terraform_files_absolute_path: "/home/brandonne/projects/files/terraform/"
+user_files_absolute_path: "/home/brandonne/projects/files/homedirs/"
+user_vars_absolute_path: "/home/brandonne/projects/files/users/"
+
+# ansible_host: "luna1"
+ansible_user: "ansible"
+ansible_password: "{{ vault_ansible_password }}"
+ansible_user_key_public: "{{ vault_ansible_user_key_public }}"
+
+# Set username and password for accounts, passwords should be 12+ and follow standard password requirements
+# Generate hash using python -c "from passlib.hash import sha512_crypt; import getpass; print(sha512_crypt.using(rounds=5000).hash(getpass.getpass()))"
+# requires passlib
+admin_password: "{{ vault_admin_password }}"
+user_key_public: "{{ ansible_user_key_public }}"
+
+lab_user: labuser
+lab_encrypted_password: "{{ vault_encrypted_password }}"
+lab_user_shell: "/bin/bash"
+lab_user_public_key: "{{ vault_user_public_key }}"
+enable_user_vars: false
+
+
+basicauth_password: "{{ vault_basicauth_password }}"
+
+# DNS
+lab_domain: "lab.travellingtechie.com"
+timezone: "US/central"
+underlay_nameserver1: "10.1.10.10"
+underlay_nameserver2: "8.8.8.8"
+lab_nameserver1: "10.1.10.10"
+lab_nameserver2: "8.8.8.8"
+ntp_server: "1.pool.ntp.org"
+
+# Underlay Hypervisor
+hypervisor: "vcenter"   # vcenter or ESXi
+vcenter_hostname: 'galactica.lab.travellingtechie.com'
+vcenter_username: 'administrator@vsphere.local'
+vcenter_password: "{{ vault_hypervisor_password }}"
+vcenter_validate_certs: no
+vcenter_datacenter: 'Homelab'
+vcenter_datastore: "Lab NFS"
+vcenter_datastore_ssd: "rama10-ssd"
+vcenter_folder: "Lab01"
+vcenter_template_folder: "templates"
+vcenter_vm_tags: "Lab01,ansible"
+vcenter_vm_notes: "Created by Ansible for Lab01"
+vcenter_vm_network: "Lab MGMT"
+# If more than one, these can be defined in the host_vars file
+# Use host or cluster, not both
+
+# hypervisor_hostname: ""
+# vm_cluster:
+# vm_datastore
+
+#esxi_hostname:
+#esxi_username:
+#esxi_password: "{{ vault_hypervisor_password }}"
+
+# License Keys
+vcenter_license_key: "{{ vault_vcenter_license_key }}"
+esxi_license_key: "{{ vault_esxi_license_key }}"
+nsx_license_key: "{{ vault_nsx_license_key }}"
+vsan_license_key: "{{ vault_vsan_license_key }}"

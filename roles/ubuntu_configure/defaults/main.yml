@@ -1,0 +1,23 @@
+---
+# defaults file for ubuntu_configure
+# Set Ubuntu roles so they are disabled by default
+enable_ansible_role: false
+
+# Set groups that admin users will be added to
+admin_groups:
+  - adm
+  - dialout
+  - cdrom
+  - floppy
+  - sudo
+  - audio
+  - dip
+  - www-data
+  - video
+  - plugdev
+  - netdev
+  - lxd
+
+# set packages for roles
+ansible_packages:
+  - sshpass

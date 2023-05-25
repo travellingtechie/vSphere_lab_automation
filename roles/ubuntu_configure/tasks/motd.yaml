@@ -1,0 +1,2 @@
+---
+# Configure motd, if I want a per user motd, I can put a command in /etc/profile that will look for a message in /etc/messages or some other dir

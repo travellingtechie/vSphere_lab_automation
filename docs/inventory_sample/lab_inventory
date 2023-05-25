@@ -1,0 +1,33 @@
+# List all ubuntu VMs
+[ubuntu]
+controlcenter
+# student-desktop
+
+# List all VMs to be deployed in to UNDERLAY vcenter
+[vsphere_vm]
+controlcenter
+# vcsa-01a
+# vyos
+# nsxmgr-01a
+# esxi-01a
+# esxi-02a
+# esxi-03a
+# student-desktop
+
+[vcenter]
+vcsa-01a
+
+[esxi]
+esxi-01a
+esxi-02a
+esxi-03a
+
+[nsxmgr]
+# nsxmgr-01a
+
+# List all VMs to be deployed in the LAB vcenter
+[lab_vm]
+# web-01a
+
+
+

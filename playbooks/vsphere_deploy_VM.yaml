@@ -1,0 +1,8 @@
+---
+## Deploys VMs from Templates
+- hosts: vsphere_vm
+  connection: local
+  gather_facts: False
+  roles:
+    - vsphere_deploy_VM
+
